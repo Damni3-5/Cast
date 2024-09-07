@@ -1,0 +1,9 @@
+{
+  "name": "cast",
+  "version-string": "0.0.2",
+  "dependencies": [
+    "raylib",
+    "stb",
+    "imgui"
+  ]
+}
