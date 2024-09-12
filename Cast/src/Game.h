@@ -1,8 +1,9 @@
 #pragma once
 
-#include "Field.h"
 #include "colors.h"
-#include "Sprite2D.h"
+#include "GameObjects/Sprite2D.h"
+#include "GameObjects/Image2D.h"
+#include "GameObjects/Timer.h"
 
 #include <imgui.h>
 
@@ -16,14 +17,17 @@ class Game
 public:
 	Game(int _screenWidth, int _screenHeight);
 	void Update();
+	void Render();
 	void HandleInput();
 
 	GameState state;
 private:
+	void ImGuiRender();
+private:
 	int screenWidth, screenHeight;
 
+	Image2D image;
 	Sprite2D sprite;
-
-	Field* GameField;
-	Field* PlayerField;
+	Camera2D camera;
+	Timer timer;
 };

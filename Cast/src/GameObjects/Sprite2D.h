@@ -8,7 +8,7 @@ public:
 	Sprite2D() = default;
 	Sprite2D(Texture2D& _texture, float x, float y, float scale = 1.0f);
 
-	void Draw() const;
+	void Draw(Camera2D& camera, Color color = WHITE) const;
 	void SetPosition(float x, float y);
 	void SetScale(float NewScale);
 	void SetRotation(float angle);

@@ -10,14 +10,25 @@ Sprite2D::Sprite2D(Texture2D& _texture, float x, float y, float scale)
 	this->origin = { 0.0f, 0.0f };
 }
 
-void Sprite2D::Draw() const
+void Sprite2D::Draw(Camera2D& camera, Color color) const
 {
-	DrawTexturePro(*texture, sourceRec, destRec, origin, rotation, WHITE);
+	const Vector2 screenPosition = GetWorldToScreen2D(this->position, camera);
+
+	const Rectangle adjustedDestRec = {
+		screenPosition.x,
+		screenPosition.y,
+		destRec.width * camera.zoom,
+		destRec.height * camera.zoom
+	};
+
+	DrawTexturePro(*texture, sourceRec, adjustedDestRec, origin, rotation, color);
 }
 
 void Sprite2D::SetPosition(float x, float y)
 {
 	this->position = { x, y };
+	this->destRec.x = x;
+	this->destRec.y = y;
 }
 
 void Sprite2D::SetScale(float NewScale)
@@ -40,5 +51,6 @@ void Sprite2D::SetFrame(int frame, int frameWidth, int frameHeight)
 	this->destRec.width = (float)frameWidth * scale;
 	this->destRec.height = (float)frameHeight * scale;
 }
+
 
 
