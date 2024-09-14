@@ -23,3 +23,9 @@ float WindowsInput::GetMouseYImpl()
 {
 	return ::GetMouseY();
 }
+
+std::pair<float, float> WindowsInput::GetMousePositionImpl()
+{
+	const Vector2 mousePosition = ::GetMousePosition();
+	return { mousePosition.x, mousePosition.y };
+}

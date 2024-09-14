@@ -1,7 +1,6 @@
 #include "Timer.h"
 
 #include <raylib.h>
-#include <string>
 #include <sstream>
 #include <iomanip>
 

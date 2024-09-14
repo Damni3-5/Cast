@@ -2,7 +2,7 @@
 
 #include "Events/KeyEvent.h"
 #include "Input.h"
-#include <string>
+#include "functions.h"
 
 Game::Game(int _screenWidth, int _screenHeight)
 {
@@ -19,7 +19,8 @@ Game::Game(int _screenWidth, int _screenHeight)
 	ResourceManager::LoadTextureR("back", "textures/back.jpg", false);
 
 	this->image = Image2D(ResourceManager::GetTextureR("back"), 0, 0, 0.5f);
-	this->sprite = Sprite2D(ResourceManager::GetTextureR("back"), 100, 100, 25.0f);
+	this->sprite = Sprite2D(ResourceManager::GetTextureR("tiles"), 10, 10, 10.0f);
+	this->button = Button2D("Jerfinidos", 150, 150, 200, 200, WHITE);
 }
 
 void Game::Update()
@@ -28,6 +29,17 @@ void Game::Update()
 	image.Draw();
 
 	sprite.Draw(camera);
+
+	Text2D text("DemonNex", 100, 100, 10, WHITE);
+	text.Draw(camera);
+
+	
+	button.Draw(camera);
+
+	if (button.CheckClick(camera))
+		button.SetColor(RED);
+	else
+		button.SetColor(BLUE);
 }
 
 void Game::Render()
@@ -40,6 +52,7 @@ void Game::Render()
 
 	EndMode2D();
 
+	
 	DrawText(timer.GetElapsedTimeString().c_str(), 10, 10, 20, WHITE);
 
 	ImGuiRender();
@@ -56,19 +69,23 @@ void Game::HandleInput()
 	{
 		timer.Stop();
 	}
-	if (Input::IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+	if (sprite.IsMouseClicked(camera)) // Input::IsMouseButtonPressed(MOUSE_BUTTON_LEFT)
 	{
-
+		std::cout << 1;
 	}
-	
-	// Camera
+
+	this->CameraRenderer();
+}
+
+void Game::CameraRenderer()
+{
 	if (IsKeyDown(KEY_D)) this->camera.target.x += 50;
 	if (IsKeyDown(KEY_A)) this->camera.target.x -= 50;
 	if (IsKeyDown(KEY_W)) this->camera.target.y -= 50;
 	if (IsKeyDown(KEY_S)) this->camera.target.y += 50;
 
-	if (IsKeyDown(KEY_R)) this->camera.zoom += 0.05f;     
-	if (IsKeyDown(KEY_F)) this->camera.zoom -= 0.05f;     
+	if (IsKeyDown(KEY_R)) this->camera.zoom += 0.05f;
+	if (IsKeyDown(KEY_F)) this->camera.zoom -= 0.05f;
 	if (this->camera.zoom < 0.1f) this->camera.zoom = 0.1f;
 }
 

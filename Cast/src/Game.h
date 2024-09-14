@@ -3,6 +3,8 @@
 #include "colors.h"
 #include "GameObjects/Sprite2D.h"
 #include "GameObjects/Image2D.h"
+#include "GameObjects/Text2D.h"
+#include "GameObjects/Button2D.h"
 #include "GameObjects/Timer.h"
 
 #include <imgui.h>
@@ -22,6 +24,7 @@ public:
 
 	GameState state;
 private:
+	void CameraRenderer();
 	void ImGuiRender();
 private:
 	int screenWidth, screenHeight;
@@ -30,4 +33,5 @@ private:
 	Sprite2D sprite;
 	Camera2D camera;
 	Timer timer;
+	Button2D button;
 };

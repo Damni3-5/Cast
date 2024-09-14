@@ -1,5 +1,7 @@
 #include "Sprite2D.h"
 
+#include "Input.h"
+
 Sprite2D::Sprite2D(Texture2D& _texture, float x, float y, float scale)
 {
 	this->texture = &_texture;
@@ -10,7 +12,7 @@ Sprite2D::Sprite2D(Texture2D& _texture, float x, float y, float scale)
 	this->origin = { 0.0f, 0.0f };
 }
 
-void Sprite2D::Draw(Camera2D& camera, Color color) const
+void Sprite2D::Draw(const Camera2D& camera, Color color) const
 {
 	const Vector2 screenPosition = GetWorldToScreen2D(this->position, camera);
 
@@ -50,6 +52,17 @@ void Sprite2D::SetFrame(int frame, int frameWidth, int frameHeight)
 
 	this->destRec.width = (float)frameWidth * scale;
 	this->destRec.height = (float)frameHeight * scale;
+}
+
+bool Sprite2D::IsMouseOver(const Camera2D& camera) const
+{
+	const Vector2 mousePosWorld = GetScreenToWorld2D({ Input::GetMouseX(), Input::GetMouseY() }, camera);
+	return CheckCollisionPointRec(mousePosWorld, destRec);
+}
+
+bool Sprite2D::IsMouseClicked(const Camera2D& camera, int mouse_button) const
+{
+	return IsMouseOver(camera) && Input::IsMouseButtonPressed(mouse_button);
 }
 
 
