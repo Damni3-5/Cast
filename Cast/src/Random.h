@@ -2,7 +2,7 @@
 
 #include <random>
 
-class Random
+class random
 {
 public:
     static int GenerateInt(int min, int max) {

@@ -17,6 +17,11 @@ public:
 	bool IsMouseOver(const Camera2D& camera) const;
 	bool IsMouseClicked(const Camera2D& camera, int mouse_button = MOUSE_LEFT_BUTTON) const;
 
+public:
+	float& GetScale() { return scale; }
+	float& GetRotation() { return rotation; }
+	Vector2& GetPosition() { return position; }
+	Texture2D* GetTexture() { return texture; }
 private:
 	Texture2D* texture;
 	Vector2 position;

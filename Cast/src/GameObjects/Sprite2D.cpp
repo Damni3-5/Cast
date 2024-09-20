@@ -19,8 +19,8 @@ void Sprite2D::Draw(const Camera2D& camera, Color color) const
 	const Rectangle adjustedDestRec = {
 		screenPosition.x,
 		screenPosition.y,
-		destRec.width * camera.zoom,
-		destRec.height * camera.zoom
+		destRec.width * camera.zoom * scale,
+		destRec.height * camera.zoom * scale
 	};
 
 	DrawTexturePro(*texture, sourceRec, adjustedDestRec, origin, rotation, color);

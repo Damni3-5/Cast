@@ -12,6 +12,9 @@ add_executable (main "main.cpp" ${SOURCES} ${HEADERS})
 
 find_package(raylib CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
+target_link_libraries(main PRIVATE nlohmann_json::nlohmann_json)
+
 target_link_libraries(main PRIVATE raylib imgui::imgui)
 
 find_package(Stb REQUIRED)

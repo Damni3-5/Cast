@@ -4,6 +4,8 @@
   "dependencies": [
     "raylib",
     "stb",
-    "imgui"
+    "imgui",
+    "nlohmann-json"
+
   ]
 }
