@@ -1,11 +1,16 @@
 {
   "name": "cast",
-  "version-string": "0.0.2",
+  "version-string": "0.0.4",
   "dependencies": [
-    "raylib",
     "stb",
-    "imgui",
-    "nlohmann-json"
-
+    "nlohmann-json",
+    "glad",
+    "opengl",
+    "glfw3",
+    "glm",
+    {
+      "name": "imgui",
+      "features": [ "opengl3-binding", "glfw-binding", "docking-experimental" ]
+    }
   ]
 }

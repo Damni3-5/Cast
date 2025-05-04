@@ -1,27 +1,47 @@
-﻿#include "src/Application.h"
+﻿#include "src/Engine/Core/Application.h"
+
+static void glfw_error_callback(int error, const char* description)
+{
+    fprintf(stderr, "GLFW Error %d: %s\n", error, description);
+}
 
 int main(int argc, char** argv)
 {
     const int screenWidth = 1200, screenHeight = 600;
 
-    InitWindow(screenWidth, screenHeight, "raylib [Cast]");
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    SetTargetFPS(75);
+    std::cout << "ImGui Version: " << IMGUI_VERSION << std::endl;
 
-    Application game(screenWidth, screenHeight);
+    try // Все что в Scene. Сделать кастомные сценки.
+    {
+        glfwSetErrorCallback(glfw_error_callback);
 
-    while(!WindowShouldClose()) // спрайт(с хитбоксом), Игрок, Загрузка текстур в imgui, свободная карта, расстановка текстур
-    {                           // сохранение карты, загрузка, драг енд дроп текстуры
-                                // TileMap AnimatedSprite2D Light2D Collider2D Sound2D TriggerZone2D UIElement
-        game.Update(); 
-        game.Render();
-        game.HandleInput();
+        Application game(screenWidth, screenHeight);
+
+        while (!glfwWindowShouldClose(Application::Get().GetWindow()))
+        {
+            game.Update();
+            game.Render();
+            game.HandleInput();
+
+            //App app = App();
+            //app.sceneManager.RegisterScene<HelloTriangleScene>("Hello Triangle");
+            //app.sceneManager.RegisterScene<HelloTextureScene>("Hello Texture");
+            //app.sceneManager.RegisterScene<Hello3DWorldScene>("Hello 3D World");
+            //app.sceneManager.RegisterScene<HelloLightsScene>("Hello Lights");
+            //app.StartRenderLoop();
+        }
     }
-
-    CloseWindow();
+    catch (const std::runtime_error& e) {
+        std::cerr << e.what() << std::endl;
+        exit(-1);
+    }
 
     return 0;
 }
-
-
 
